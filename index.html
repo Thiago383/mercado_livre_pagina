@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Redirecionamento</title>
+</head>
+<body>
+    <h1>Autorização do Mercado Livre</h1>
+    <p>Clique no botão para autorizar seu aplicativo:</p>
+    
+    <a href="https://auth.mercadolivre.com.br/authorization?response_type=code&client_id=SEU_APP_ID&redirect_uri=https://SEU_USUARIO.github.io/SEU_REPOSITORIO/">Autorizar</a>
+
+    <hr>
+
+    <div id="status">
+        <h2>Status da Autorização</h2>
+        <p id="message">Aguardando código de autorização...</p>
+        <p id="code-display"></p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const code = params.get('code');
+            const messageElement = document.getElementById('message');
+            const codeDisplayElement = document.getElementById('code-display');
+
+            if (code) {
+                messageElement.textContent = 'Autorização bem-sucedida! O código de autorização é:';
+                codeDisplayElement.textContent = code;
+            } else if (params.get('error')) {
+                messageElement.textContent = 'Ocorreu um erro na autorização.';
+                codeDisplayElement.textContent = `Erro: ${params.get('error')}`;
+            }
+        });
+    </script>
+</body>
+</html>
